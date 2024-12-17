@@ -31,3 +31,8 @@ set(CMAKE_C_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -march=armv7e-m+fp -mfpu=
 			-Wimplicit-function-declaration -Wdouble-promotion -Wfloat-conversion -ffunction-sections \
 			-fdata-sections -fno-strict-aliasing -O1 -D NDEBUG -u _printf_float -u _scanf_float -Wl,--gc-sections -Wno-enum-conversion -fsigned-char \
 			-Wunknown-pragmas -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare")
+
+set(CMAKE_CXX_FLAGS "-mcpu=cortex-m4 -mthumb -mabi=aapcs -march=armv7e-m+fp -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -Wextra \
+			-Wdouble-promotion -Wfloat-conversion -ffunction-sections --specs=nano.specs --specs=nosys.specs \
+			-fdata-sections -fno-strict-aliasing -O1 -D NDEBUG -u _printf_float -std=gnu++17 -u _scanf_float -Wl,--gc-sections -fsigned-char \
+			-Wunknown-pragmas -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare -Wno-literal-suffix -fno-rtti")

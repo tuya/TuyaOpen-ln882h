@@ -140,14 +140,18 @@ SECTIONS
 
 	/* Group unwind sections together: */
 	.ARM.extab : { *(.ARM.extab*) }
+    __exidx_start = .;
 	.ARM.exidx : { *(.ARM.exidx*) }
+    __exidx_end = .;
 
+/*
 	/DISCARD/ : {
         *(.ARM.exidx.exit.text)
         *(.ARM.extab.exit.text)
         *(.ARM.exidx.devexit.text)
         *(.ARM.extab.devexit.text)
 	}
+*/
 
 	/* Set stack top to end of RAM, and stack limit move down by
 	 * size of stack_dummy section */

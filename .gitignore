@@ -2,3 +2,4 @@
 *.d
 ln882h_os/output
 tuya_bootloader/build
+tuya_bootloader/tools/boot_package

@@ -11,6 +11,7 @@ endif
 
 TOOLCHAIN=${TUYA_TOOLCHAIN_PRE}
 CC = ${TOOLCHAIN}gcc
+CPP = ${TOOLCHAIN}g++
 OBJCOPY = ${TOOLCHAIN}objcopy
 OBJDUMP = ${TOOLCHAIN}objdump
 
@@ -99,7 +100,7 @@ ${CUR_DIR}/ln882h/ln882h.ld ${CUR_DIR}/ln882h/cfg/flash_partition_table.h: ${CUR
 
 elf: ${OBJS} ${CUR_DIR}/ln882h/ln882h.ld ${CUR_DIR}/ln882h/cfg/flash_partition_table.h
 	mkdir -p ${build_dir}
-	${Q} $(CC) ${CFLAGS} ${INCLUDES} ${OBJS} ${LINKER_FLAGS} ${LN_LIBS_PATH} -Wl,--start-group ${LN_LIBS} -Wl,--end-group -T ${LD_FILE} -o ${build_dir}/${APP_BIN_NAME}_${APP_VERSION}.elf
+	${Q} $(CPP) ${CFLAGS} ${INCLUDES} ${OBJS} ${LINKER_FLAGS} ${LN_LIBS_PATH} -Wl,--start-group ${LN_LIBS} -Wl,--end-group -T ${LD_FILE} -o ${build_dir}/${APP_BIN_NAME}_${APP_VERSION}.elf
 	${Q} ${OBJDUMP} -dS ${build_dir}/${APP_BIN_NAME}_${APP_VERSION}.elf > ${build_dir}/${APP_BIN_NAME}_${APP_VERSION}.asm
 
 after_build_script = ${CUR_DIR}/package-tools/python_scripts/after_build_gcc.py
