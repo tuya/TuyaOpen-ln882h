@@ -124,6 +124,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_ram0_end__ = .;
+		end = .;
 	} >RAM0
 
 	.no_init_data (NOLOAD):
