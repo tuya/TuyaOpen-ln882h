@@ -35,6 +35,16 @@ typedef struct {
 } ty_netif_ip_info_s;
 #endif // ENABLE_LN_LWIP
 
+struct netif *tkl_lwip_get_netif_by_index(int net_if_idx)
+{
+    if(net_if_idx == 0)
+        return netdev_get_netif(0);
+    else if(net_if_idx == 1)
+        return netdev_get_netif(1);
+
+    return NULL;
+}
+
 struct netif *netdev_get(void)
 {
     WF_WK_MD_E mode;
