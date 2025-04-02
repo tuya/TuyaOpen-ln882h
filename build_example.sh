@@ -35,6 +35,13 @@ fi
 
 make APP_BIN_NAME=$EXAMPLE_NAME APP_VERSION=$EXAMPLE_VER LIBS_DIR=$LIBS_DIR LIBS="$LIBS" OUTPUT_DIR=$OUTPUT_DIR HEADER_DIR="$HEADER_DIR" $USER_CMD -C ln882h_os
 
+if [ x$USER_CMD = "xclean" ];then
+	echo "*************************************************************************"
+	echo "************************CLEAN SUCCESS************************************"
+	echo "*************************************************************************"
+	exit 0
+fi
+
 APP_BIN_NAME=$EXAMPLE_NAME
 APP_VERSION=$EXAMPLE_VER
 APP_BIN_DIR=${OUTPUT_DIR}
