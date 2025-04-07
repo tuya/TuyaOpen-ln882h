@@ -16,21 +16,17 @@
 #include "ln_netif/ln_ethernetif.h"
 
 
+typedef struct {
+    struct netif          netif_arr[NETIF_IDX_MAX];
+} ethernetif_t;
+
+
+static ethernetif_t  g_ethernetif = {0};
 static netdev_get_ip_cb_t g_get_ip_cb  = NULL;
 
-static struct netif *ethernetif_get_netdev(netif_idx_t nif_idx)
+static struct netif *ethernetif_get_netdev(netif_idx_t nif_idx) 
 {
-    TUYA_NETIF_TYPE idx;
-
-    if (nif_idx == NETIF_IDX_STA) {
-        idx = NETIF_STA_IDX;
-    } else if (nif_idx == NETIF_IDX_AP) {
-        idx = NETIF_AP_IDX;
-    } else {
-        return NULL;
-    }
-
-    return tuya_ethernetif_get_netif_by_index(idx);
+    return &(g_ethernetif.netif_arr[nif_idx]);
 }
 
 struct netif *netdev_get_netif(netif_idx_t nif_idx)
@@ -145,7 +141,7 @@ netif_idx_t netdev_get_active(void)
     mode = wifi_current_mode_get();
     if (mode == WIFI_MODE_STATION)
         return NETIF_IDX_STA;
-    else if (mode == WIFI_MODE_STATION)
+    else
         return NETIF_IDX_AP;
 }
 
