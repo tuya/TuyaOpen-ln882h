@@ -35,11 +35,11 @@ typedef struct {
 } ty_netif_ip_info_s;
 #endif // ENABLE_LN_LWIP
 
-struct netif *tkl_lwip_get_netif_by_index(int net_if_idx)
+struct netif *tkl_lwip_get_netif_by_index(TUYA_NETIF_TYPE net_if_idx)
 {
-    if(net_if_idx == 0)
+    if(net_if_idx == NETIF_STA_IDX)
         return netdev_get_netif(0);
-    else if(net_if_idx == 1)
+    else if(net_if_idx == NETIF_AP_IDX)
         return netdev_get_netif(1);
 
     return NULL;
@@ -66,9 +66,7 @@ struct netif *netdev_get(void)
             return NULL;
     }
 
-    struct netif *nif = tuya_ethernetif_get_netif_by_index(net_if_idx);
-    if (nif == NULL)
-        return;
+    struct netif *nif = tkl_lwip_get_netif_by_index(net_if_idx);
 
     return nif;
 }
@@ -80,9 +78,10 @@ static void netif_low_level_input_callback(uint8_t *data, uint16_t len)
     struct pbuf *pkt = NULL, *q = NULL;
 
     struct netif *nif = netdev_get();
-    if (nif == NULL)
+    if (nif == NULL) {
+        LOG(LOG_LVL_ERROR, "[%s, %d] netdev_get null.\r\n", __func__, __LINE__);
         return;
-
+    }
     pkt = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
     if(NULL == pkt) {
         LOG(LOG_LVL_DEBUG, "[%s, %d] Can not malloc pbuff(request len=%d).\r\n", __func__, __LINE__, len);
@@ -149,9 +148,11 @@ OPERATE_RET tkl_ethernetif_output(TKL_NETIF_HANDLE netif, TKL_PBUF_HANDLE p)
         memcpy(frame_buf + payload_offset, (u8_t*)q->payload, q->len );
         payload_offset += q->len;
     }
+
     wifi_send_ethernet_pkt(frame_buf, pkt->tot_len, 20, 5);
 
     OS_Free(frame_buf);
+
     return OPRT_OK;
 }
 
