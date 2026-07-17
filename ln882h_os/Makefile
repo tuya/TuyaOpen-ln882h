@@ -43,10 +43,12 @@ TUYA_INCLUDES += ${TOPDIR}/../tuyaos/tuyaos_adapter/include
 TUYA_INCLUDES += ${TOPDIR}/../tuyaos/tuyaos_adapter/include/utilities/include
 TUYA_INCLUDES += ${TOPDIR}/../tuyaos/tuyaos_adapter/include/uart
 TUYA_INCLUDES += ${TOPDIR}/../tuyaos/tuyaos_adapter/include/wifi
+TUYA_INCLUDES += ${TOPDIR}/../tuyaos/tuyaos_adapter/tuyaopen
 TUYA_INCLUDES += ${TOPDIR}/../tuya_bootloader/include
 
 TY_SRC_DIRS += $(shell find ${TOPDIR}/../tuyaos/tuyaos_adapter/src -type d)
 TY_SRC_DIRS += $(shell find ${TOPDIR}/../tuyaos/tuyaos_adapter/include -type d)
+TY_SRC_DIRS += ${TOPDIR}/../tuyaos/tuyaos_adapter/tuyaopen
 
 TUYA_SRCS += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.c)) # need export
 TUYA_SRCS += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.cpp)) 
